@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Painel Admin</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<h2>Painel Admin - Adicionar Fruta</h2>
+
+<form id="form">
+<input type="text" id="nome" placeholder="Nome da fruta" required>
+<input type="text" id="origem" placeholder="Origem (ex: Sul)">
+<input type="text" id="imagem" placeholder="URL da imagem">
+<button type="submit">Adicionar</button>
+</form>
+
+<script>
+document.getElementById('form').addEventListener('submit', function(e){
+ e.preventDefault();
+
+ let frutas = JSON.parse(localStorage.getItem('frutas')) || [];
+
+ frutas.push({
+  nome: document.getElementById('nome').value,
+  origem: document.getElementById('origem').value,
+  imagem: document.getElementById('imagem').value
+ });
+
+ localStorage.setItem('frutas', JSON.stringify(frutas));
+ alert('Fruta adicionada!');
+ this.reset();
+});
+</script>
+
+</body>
+</html>
