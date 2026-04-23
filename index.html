@@ -3,207 +3,965 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Massala - Frutas Naturais</title>
+<title>Massala — Frutas Naturais de Moçambique</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #1a5c2e;
+    --verde-medio: #2e8b4a;
+    --verde-claro: #5cb876;
+    --amarelo: #f5c518;
+    --laranja: #e8841a;
+    --terra: #c4622d;
+    --creme: #fdf6e3;
+    --escuro: #0d2e16;
+    --branco: #ffffff;
+  }
 
-<link rel="stylesheet" href="styles.css">
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--creme);
+    color: var(--escuro);
+    overflow-x: hidden;
+  }
+
+  /* ── PADRÃO CAPULANA DECORATIVO ── */
+  .capulana-stripe {
+    height: 8px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--verde) 0px, var(--verde) 20px,
+      var(--amarelo) 20px, var(--amarelo) 40px,
+      var(--terra) 40px, var(--terra) 60px,
+      var(--laranja) 60px, var(--laranja) 80px,
+      var(--verde-claro) 80px, var(--verde-claro) 100px
+    );
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--escuro);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--amarelo);
+    letter-spacing: 2px;
+  }
+
+  .nav-links { display: flex; gap: 8px; }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.25s;
+  }
+
+  .nav-links a:hover {
+    color: var(--amarelo);
+    background: rgba(245,197,24,0.1);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    background:
+      linear-gradient(160deg, rgba(13,46,22,0.88) 0%, rgba(13,46,22,0.4) 60%, transparent 100%),
+      url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=1600') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* Padrão geométrico tribal no canto */
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,197,24,0.15) 0%, transparent 70%);
+    border: 2px solid rgba(245,197,24,0.2);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 2px solid rgba(245,197,24,0.15);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 80px;
+    max-width: 700px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--amarelo);
+    color: var(--escuro);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    margin-bottom: 24px;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--amarelo);
+  }
+
+  .hero p {
+    color: rgba(255,255,255,0.75);
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 480px;
+  }
+
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--amarelo);
+    color: var(--escuro);
+    padding: 14px 32px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.25s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+  }
+
+  .btn-primary:hover { background: var(--laranja); color: white; }
+
+  .btn-outline {
+    border: 2px solid rgba(255,255,255,0.5);
+    color: white;
+    padding: 14px 32px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.25s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--amarelo);
+    color: var(--amarelo);
+  }
+
+  /* Decoração bandeira Moçambique bottom */
+  .hero-mz-deco {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #009A44 0%, #009A44 33.3%, #000 33.3%, #000 38%, #009A44 38%, #009A44 50%, #FCE100 50%, #FCE100 66.6%, #000 66.6%, #000 71%, #FCE100 71%, #FCE100 83%, #DC241F 83%, #DC241F 100%);
+    opacity: 0.6;
+  }
+
+  /* ── SECÇÃO GERAL ── */
+  .section {
+    padding: 80px 60px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    border-bottom: 1px solid rgba(26,92,46,0.15);
+    padding-bottom: 24px;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--escuro);
+    line-height: 1.15;
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 40px;
+    background: var(--escuro);
+    padding: 6px;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .tab-btn {
+    padding: 10px 28px;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.55);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+
+  .tab-btn:hover { color: white; }
+
+  .tab-btn.active {
+    background: var(--amarelo);
+    color: var(--escuro);
+    font-weight: 600;
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: fadeUp 0.4s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── CARDS ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(26,92,46,0.15);
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--verde), var(--amarelo), var(--terra));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .card:hover::after { transform: scaleX(1); }
+
+  .card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-origin {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--verde-medio);
+    margin-bottom: 6px;
+  }
+
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--escuro);
+    margin-bottom: 8px;
+  }
+
+  .card p {
+    font-size: 0.88rem;
+    color: #5a6a5e;
+    line-height: 1.6;
+  }
+
+  .badge-mz {
+    display: inline-block;
+    background: var(--verde);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-top: 10px;
+  }
+
+  .badge-import {
+    background: var(--terra);
+  }
+
+  /* ── BANNER MOÇAMBIQUE ── */
+  .banner-mz {
+    background: var(--escuro);
+    color: white;
+    padding: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .banner-mz::before {
+    content: 'MZ';
+    position: absolute;
+    right: -20px;
+    top: -40px;
+    font-family: 'Playfair Display', serif;
+    font-size: 20rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.02);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .banner-mz-label {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--amarelo);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .banner-mz h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .banner-mz h2 span { color: var(--verde-claro); }
+
+  .banner-mz p {
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .stats { display: flex; gap: 40px; margin-top: 40px; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--amarelo);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .banner-mz-img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 20px 20px 0 rgba(245,197,24,0.2);
+  }
+
+  /* ── DISTRIBUIDORES ── */
+  .section-dist { background: white; }
+
+  .dist-card {
+    background: var(--creme);
+    border-left: 4px solid var(--verde);
+    padding: 24px 28px;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.25s;
+  }
+
+  .dist-card:hover {
+    border-left-color: var(--amarelo);
+    transform: translateX(6px);
+  }
+
+  .dist-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .dist-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--escuro);
+    margin-bottom: 4px;
+  }
+
+  .dist-desc {
+    font-size: 0.85rem;
+    color: #6a7a6e;
+  }
+
+  /* ── CONTACTO ── */
+  .section-contacto {
+    background: linear-gradient(135deg, var(--verde) 0%, var(--escuro) 100%);
+    color: white;
+  }
+
+  .section-contacto .section-title { color: white; }
+  .section-contacto .section-label { color: var(--verde-claro); }
+
+  .contacto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .form-group { margin-bottom: 18px; }
+
+  .form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 12px 16px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.25s;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,0.35); }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--amarelo);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  .form-group select { cursor: pointer; }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--amarelo);
+    color: var(--escuro);
+    border: none;
+    padding: 14px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 8px;
+  }
+
+  .btn-submit:hover { background: var(--laranja); color: white; }
+
+  .contacto-info { padding-top: 20px; }
+
+  .info-item {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .info-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+  }
+
+  .info-text-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 4px;
+  }
+
+  .info-text-value {
+    color: white;
+    font-size: 0.95rem;
+  }
+
+  .whatsapp-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #25D366;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    margin-top: 30px;
+    transition: all 0.25s;
+    width: fit-content;
+  }
+
+  .whatsapp-btn:hover { background: #1da855; transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--escuro);
+    padding: 30px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--amarelo);
+    letter-spacing: 2px;
+  }
+
+  .footer-copy {
+    color: rgba(255,255,255,0.35);
+    font-size: 0.8rem;
+  }
+
+  .footer-flag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero-content { padding: 0 30px; }
+    .section { padding: 60px 24px; }
+    .banner-mz { grid-template-columns: 1fr; padding: 40px 24px; }
+    .banner-mz::before { display: none; }
+    .contacto-grid { grid-template-columns: 1fr; }
+    footer { padding: 24px; }
+    nav { padding: 0 20px; }
+    .nav-links a { padding: 8px 10px; font-size: 0.75rem; }
+  }
+</style>
 </head>
-
 <body>
 
-<header>
-<h1>Massala</h1>
-<p>Distribuição Inteligente de Frutas Naturais</p>
-</header>
+<div class="capulana-stripe"></div>
 
 <nav>
-<a href="#">Início</a>
-<a href="#frutas">Frutas</a>
-<a href="#distribuidores">Distribuidores</a>
-<a href="#contacto">Contacto</a>
+  <span class="nav-logo">Massala</span>
+  <div class="nav-links">
+    <a href="#frutas">Frutas</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#distribuidores">Distribuidores</a>
+    <a href="#contacto">Contacto</a>
+  </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-<h1>Frescura direto do campo</h1>
+  <div class="hero-content">
+    <span class="hero-tag">🌿 100% Moçambique</span>
+    <h1>Frescura<br>direto do <em>campo</em></h1>
+    <p>Distribuição inteligente das melhores frutas naturais de Moçambique. Do campo à sua mesa, com qualidade e tradição.</p>
+    <div class="hero-btns">
+      <a href="#frutas" class="btn-primary">Ver Catálogo</a>
+      <a href="#contacto" class="btn-outline">Pedir Cotação</a>
+    </div>
+  </div>
+  <div class="hero-mz-deco"></div>
 </section>
 
-<div class="container" id="frutas">
-<h2>Catálogo de Frutas</h2>
+<!-- FRUTAS -->
+<section class="section" id="frutas">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Catálogo</div>
+      <h2 class="section-title">Nossas Frutas</h2>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('tropicais', event)">Tropicais</button>
+      <button class="tab-btn" onclick="showTab('citricas', event)">Cítricas</button>
+      <button class="tab-btn" onclick="showTab('doces', event)">Doces</button>
+    </div>
+  </div>
 
-<div class="tabs">
-<button class="tab-btn active" onclick="showTab('tropicais', event)">Tropicais</button>
-<button class="tab-btn" onclick="showTab('citricas', event)">Cítricas</button>
-<button class="tab-btn" onclick="showTab('doces', event)">Doces</button>
+  <!-- TROPICAIS -->
+  <div id="tropicais" class="tab-content active">
+    <div class="cards">
+
+      <div class="card">
+        <img class="card-img" src="manga.jpeg" alt="Manga">
+        <div class="card-body">
+          <div class="card-origin">Zona Sul</div>
+          <h3>Manga</h3>
+          <p>Doce, tropical e muito consumida em todo o país. Variedades Kent e Tommy Atkins.</p>
+          <span class="badge-mz">🇲🇿 Local</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img class="card-img" src="massala.jpeg" alt="massala">
+        <div class="card-body">
+          <div class="card-origin">Sul</div>
+          <h3>Papaia</h3>
+          <p>Em Moçambique, a massala (também conhecida como nsala no sul do país) é um dos frutos silvestres mais emblemáticos e queridos, colhido da árvore massaleira (Strychnos spinosa). É muito mais do que apenas um alimento; é um símbolo de infância, partilha comunitária e resistência.</p>
+          <span class="badge-mz">🇲🇿 Local</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img class="card-img" src="caju.jpg" alt="Caju">
+        <div class="card-body">
+          <div class="card-origin">Inhambane · Nampula</div>
+          <h3>Caju</h3>
+          <p>O fruto mais icónico de Moçambique. Polpa suculenta e castanha crocante — sabor único da nossa terra.</p>
+          <span class="badge-mz">🇲🇿 Local</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CÍTRICAS -->
+  <div id="citricas" class="tab-content">
+    <div class="cards">
+
+      <div class="card">
+        <img class="card-img" src="laranja.jpeg" alt="Laranja">
+        <div class="card-body">
+          <div class="card-origin">Norte</div>
+          <h3>Laranja</h3>
+          <p>Vitamina C natural, ideal para sumos frescos e sobremesas.</p>
+          <span class="badge-mz">🇲🇿 Local</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img class="card-img" src="lmao.jpeg" alt="Limão">
+        <div class="card-body">
+          <div class="card-origin">Centro</div>
+          <h3>Limão</h3>
+          <p>Usado amplamente em bebidas, culinária típica e marinadas de peixe.</p>
+          <span class="badge-mz">🇲🇿 Local</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DOCES -->
+  <div id="doces" class="tab-content">
+    <div class="cards">
+
+      <div class="card">
+        <img class="card-img" src="maca.webp" alt="Maçã">
+        <div class="card-body">
+          <div class="card-origin">Importada</div>
+          <h3>Maçã</h3>
+          <p>Clássica e nutritiva. Variedades selecionadas para garantir qualidade.</p>
+          <span class="badge-mz badge-import">Importada</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img class="card-img" src="banana.jpeg" alt="Banana">
+        <div class="card-body">
+          <div class="card-origin">Norte</div>
+          <h3>Banana</h3>
+          <p>Fonte de energia. Cultivada no norte de Moçambique, doce e cremosa.</p>
+          <span class="badge-mz">🇲🇿 Local</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img class="card-img" src="uva.webp" alt="Uva">
+        <div class="card-body">
+          <div class="card-origin">Importada</div>
+          <h3>Uva</h3>
+          <p>Doce e usada em várias receitas. Variedades sem grainha disponíveis.</p>
+          <span class="badge-mz badge-import">Importada</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BANNER SOBRE MOÇAMBIQUE -->
+<div class="banner-mz" id="sobre">
+  <div>
+    <div class="banner-mz-label">Sobre a Massala</div>
+    <h2>Raízes profundas na <span>terra moçambicana</span></h2>
+    <p>A Massala nasceu do orgulho das nossas terras férteis. Trabalhamos diretamente com agricultores locais das zonas Norte, Centro e Sul — garantindo frescura, sustentabilidade e apoio à economia local.</p>
+    <div class="stats">
+      <div>
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Províncias</div>
+      </div>
+      <div>
+        <div class="stat-num">80+</div>
+        <div class="stat-label">Agricultores</div>
+      </div>
+      <div>
+        <div class="stat-num">8</div>
+        <div class="stat-label">Frutas</div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <img
+      class="banner-mz-img"
+      src="mz.avif"
+    >
+  </div>
 </div>
 
-<div id="tropicais" class="tab-content active">
-<div class="cards">
+<!-- DISTRIBUIDORES -->
+<section class="section section-dist" id="distribuidores">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Parceiros</div>
+      <h2 class="section-title">Distribuidores</h2>
+    </div>
+  </div>
+  <div class="cards" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1550258987-190a2d41a8ba">
-<div class="card-content">
-<h3>Manga</h3>
-<p>Doce, tropical e muito consumida.</p>
-<p><strong>Origem:</strong> Zona Sul</p>
-</div>
-</div>
+    <div class="dist-card">
+      <img class="dist-icon" src="fazenda.jpeg" alt="Fazenda Verde">
+      <div>
+        <div class="dist-name">Fazenda Verde</div>
+        <div class="dist-desc">Produção local orgânica, certificada. Inhambane.</div>
+      </div>
+    </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1587132137056-bfbf0166836e">
-<div class="card-content">
-<h3>Ananás</h3>
-<p>Refrescante e ideal para sumos.</p>
-<p><strong>Origem:</strong> Zona Centro</p>
-</div>
-</div>
+    <div class="dist-card">
+      <img class="dist-icon" src="imae.png" alt="AgroFresh">
+      <div>
+        <div class="dist-name">AgroMoz</div>
+        <div class="dist-desc">Distribuição em larga escala. Maputo e Sofala.</div>
+      </div>
+    </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2">
-<div class="card-content">
-<h3>Papaia</h3>
-<p>Boa para digestão e rica em vitaminas.</p>
-<p><strong>Origem:</strong> Norte</p>
-</div>
-</div>
+    <div class="dist-card">
+      <img class="dist-icon" src="images.jpeg" alt="Nampula Frutos">
+      <div>
+        <div class="dist-name">Nampula Frutos</div>
+        <div class="dist-desc">Especialistas em frutas tropicais do norte do país.</div>
+      </div>
+    </div>
 
-</div>
-</div>
+  </div>
+</section>
 
-<div id="citricas" class="tab-content">
-<div class="cards">
+<!-- CONTACTO -->
+<section class="section section-contacto" id="contacto">
+  <div class="section-header" style="border-bottom-color: rgba(255,255,255,0.1);">
+    <div>
+      <div class="section-label">Fale Connosco</div>
+      <h2 class="section-title">Contacto & Feedback</h2>
+    </div>
+  </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1587735243615-c03f25aaff15">
-<div class="card-content">
-<h3>Laranja</h3>
-<p>Vitamina C natural.</p>
-<p><strong>Origem:</strong> Norte</p>
-</div>
-</div>
+  <div class="contacto-grid">
+    <form onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label>Nome completo</label>
+        <input type="text" placeholder="Ex: João Machava" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="joao@empresa.co.mz" required>
+      </div>
+      <div class="form-group">
+        <label>Tipo de pedido</label>
+        <select>
+          <option value="">Selecione...</option>
+          <option>Cotação de frutas</option>
+          <option>Parceria de distribuição</option>
+          <option>Informação geral</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mensagem</label>
+        <textarea placeholder="Descreva o seu pedido..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Enviar Mensagem</button>
+      <div id="form-success" style="display:none; margin-top:12px; color:#5cb876; font-size:0.85rem; font-weight:600;">
+        ✓ Mensagem enviada com sucesso! Respondemos em 24h.
+      </div>
+    </form>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1590502593747-42a996133562">
-<div class="card-content">
-<h3>Limão</h3>
-<p>Usado em bebidas e culinária.</p>
-<p><strong>Origem:</strong> Centro</p>
-</div>
-</div>
+    <div class="contacto-info">
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-text-label">Localização</div>
+          <div class="info-text-value">Av. Eduardo Mondlane, Maputo, Moçambique</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📞</div>
+        <div>
+          <div class="info-text-label">Telefone</div>
+          <div class="info-text-value">+258 84 370 9289</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">✉️</div>
+        <div>
+          <div class="info-text-label">Email</div>
+          <div class="info-text-value">geral@massala.co.mz</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">🕐</div>
+        <div>
+          <div class="info-text-label">Horário</div>
+          <div class="info-text-value">Seg–Sex: 7h–18h &nbsp;|&nbsp; Sáb: 7h–13h</div>
+        </div>
+      </div>
 
-</div>
-</div>
+      <a class="whatsapp-btn" href="https://wa.me/258843709289" target="_blank">
+        <span style="font-size:1.3rem">📲</span>
+        Pedir cotação via WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
 
-<div id="doces" class="tab-content">
-<div class="cards">
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1574226516831-e1dff420e37a">
-<div class="card-content">
-<h3>Maçã</h3>
-<p>Clássica e nutritiva.</p>
-<p><strong>Origem:</strong> Importada</p>
-</div>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e">
-<div class="card-content">
-<h3>Banana</h3>
-<p>Fonte de energia.</p>
-<p><strong>Origem:</strong> Norte</p>
-</div>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b">
-<div class="card-content">
-<h3>Uva</h3>
-<p>Doce e usada em várias receitas.</p>
-<p><strong>Origem:</strong> Importada</p>
-</div>
-</div>
-
-</div>
-</div>
-</div>
-
-<div class="container" id="distribuidores">
-<h2>Distribuidores</h2>
-<div class="cards">
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1523741543316-beb7fc7023d8">
-<div class="card-content">
-<h3>Fazenda Verde</h3>
-<p>Produção local orgânica.</p>
-</div>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1506806732259-39c2d0268443">
-<div class="card-content">
-<h3>AgroFresh</h3>
-<p>Distribuição em larga escala.</p>
-</div>
-</div>
-
-</div>
-</div>
-
-<div class="container" id="contacto">
-<h2>Contacto & Feedback</h2>
-
-<form class="form">
-<input type="text" placeholder="Seu nome" required>
-<input type="email" placeholder="Seu email" required>
-<textarea placeholder="Sua mensagem"></textarea>
-<button type="submit">Enviar</button>
-</form>
-
-<br>
-
-<a class="whatsapp" href="https://wa.me/258840000000" target="_blank">
-📲 Pedir cotação via WhatsApp
-</a>
-
-</div>
-
+<!-- FOOTER -->
+<div class="capulana-stripe"></div>
 <footer>
-<p>&copy; 2026 Massala</p>
+  <span class="footer-logo">Massala</span>
+  <span class="footer-flag">🇲🇿 Feito em Moçambique</span>
+  <span class="footer-copy">© 2026 Massala — Todos os direitos reservados</span>
 </footer>
 
-<script src="script.js"></script>
-
-</body>
-</html>
-
-<!-- CSS -->
-<style>
-body {font-family: Arial; margin:0; background:#f4fff4}
-header {background:linear-gradient(#2e7d32,#66bb6a);color:white;text-align:center;padding:20px}
-nav {display:flex;justify-content:center;background:#1b5e20}
-nav a {color:white;padding:15px;text-decoration:none}
-nav a:hover {background:#388e3c}
-.hero {height:400px;background:url('https://images.unsplash.com/photo-1610832958506-aa56368176cf') center/cover;display:flex;align-items:center;justify-content:center;color:white}
-.container {padding:40px}
-.cards {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card {background:white;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);overflow:hidden;transition:0.3s}
-.card:hover {transform:scale(1.05)}
-.card img {width:100%;height:150px;object-fit:cover}
-.tab-btn {padding:10px;border:none;background:#81c784;margin:5px;cursor:pointer}
-.tab-btn.active {background:#2e7d32;color:white}
-.tab-content {display:none}
-.tab-content.active {display:block}
-.form input,.form textarea {display:block;width:100%;margin:10px 0;padding:10px}
-.form button {background:#2e7d32;color:white;padding:10px;border:none}
-.whatsapp {display:inline-block;background:#25D366;color:white;padding:15px;border-radius:10px;text-decoration:none}
-</style>
-
-<!-- JS -->
 <script>
-function showTab(id, e){
- document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
- document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- e.target.classList.add('active');
+function showTab(id, e) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  e.target.classList.add('active');
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('form-success').style.display = 'block';
+  e.target.reset();
+  setTimeout(() => {
+    document.getElementById('form-success').style.display = 'none';
+  }, 5000);
 }
 </script>
+</body>
+</html>
